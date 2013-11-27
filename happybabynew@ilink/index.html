@@ -14,24 +14,35 @@
     </head>
     <body id="main">
         <!--主页面-->
-        <div data-role="view" id="mainDiv" data-layout="layout" data-title="登录"  >
+        <div data-role="view" id="mainDiv" data-title="登录"  >
+            <header data-role="footer">
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                </div>
+            </header>
             <br  />
             <br  />
             <br  />
-            <div style="margin:50 0 10 0;text-align:center" >
+            <br  />
+            <br  />
+            <div style="margin:0 0 10 0;text-align:center" >
                 <img src="./styles/image/baby.png" class=""/>
             </div>
             <div style="text-align:center">
                 <input type="button" style="width:85%;height:35px;color:#ffffff" value="用新浪微博账号登录"/>
                 <br  />
+                <br  />
                 <input type="button" style="width:85%;height:35px;color:#ffffff" value="用腾讯微博账号登录"/>
+                <br  />
                 <br  />
                 <div style="margin:20 0 0 0;text-align:center;color:#oooooo" >
                     <a onclick="selectCtr('#registerDiv')" style="font-size:1.8em;color:gray; text-decoration: none;" >注册</a>|
                     <a onclick="selectCtr('#dengluDiv')"  style="font-size:1.8em;color:gray; text-decoration: none;">登录</a>
                 </div>
+                <br  />
+
                 <div style="margin:20 0 0 0;text-align:center" >
-                    <input type="button" style="width:65%;height:35px;color:#ffffff" value="使用邀请码" onclick="login()"/>
+                    <input type="button" style="width:65%;height:35px;color:#ffffff" value="使用邀请码" onclick="selectCtr('#inviteDiv')" />
                 </div>
             </div>
         </div>
@@ -40,9 +51,21 @@
             <br  />
             <br  />
             <br  />
-            <div style="text-align:center">
-                <input type="text" name="user_search" placeholder="邮箱/手机号/昵称/客户号" />
-                <input type="text" name="user_search" placeholder="请输入密码" />
+            <br  />
+            <br  />
+            <br  />
+            <div style="text-align:center;color:#oooooo">
+                <input type="text" id="userName" style="width:65%;height:35px;" placeholder="邮箱/手机号/昵称/客户号" />
+                <br  />
+                <br  />
+                <input type="password" id="passWord" style="width:65%;height:35px;" placeholder="请输入密码" />
+                <br  />
+                <br  />
+                <div style="width:70%;margin:0 auto；text-align:left" >
+                    <input id="remPass" type="checkbox" checked="true"  />记住密码
+                    <a href="http://domain/?t=1_4"  >忘记密码?</a>
+                </div>
+                <br  />
                 <div style="margin:20 0 0 0;text-align:center" >
                     <input type="button" style="width:65%;height:35px;color:#ffffff" value="登录" onclick="login()"/>
                 </div>
@@ -51,16 +74,346 @@
         </div>
         <!--注册页面-->
         <div data-role="view" id="registerDiv" data-layout="layout" data-title="注册"  >
-            dd
+            <br  />
+            <br  />
+            <br  />
+            <br  />
+            <div style="text-align:center;">
+                <input type="text" id="ruserName" style="width:65%;height:35px;" placeholder="邮箱/手机号/昵称/客户号" />
+                <br  />
+                <br  />
+                <input type="password" id="rpassWord" style="width:65%;height:35px;" placeholder="请输入密码" />
+                <br  />
+                <br  />
+                <input type="password" id="rrpassWord" style="width:65%;height:35px;" placeholder="请再次输入密码" />
+                <input type="hidden" id="publicinviteCode" />
+                <br  />
+                <br  />
+                <div style="width:75%;margin:0 auto；text-align:left" >
+                    <input id="f" type="checkbox" checked="true"  />阅读并同意 《注册协议》
+                </div>
+                <br  />
+                <div style="margin:20 0 0 0;text-align:center" >
+                    <input type="button" style="width:65%;height:35px;color:#ffffff" value="注册" onclick="register()"/>
+                </div>
+
+            </div>
+        </div>
+        <!--邀请码页面-->
+        <div data-role="view" id="inviteDiv" data-layout="layout" data-title="邀请码"  >
+            <ul id="actionsheet" data-role="actionsheet" data-cancel="取消" >
+                <li>
+                    <a onclick="selectCtr('#dengluDiv')" >登录</a>
+                </li>
+                <li>
+                    <a onclick="selectCtr('#registerDiv')">注册</a>
+                </li>
+                <div style="color:red">注：已注册用户，请点击登录！未注册用户请点击注册！</div>
+                <hr />
+            </ul>
+            <br  />
+            <br  />
+            <br  />
+            <br  />
+            <div style="text-align:center;">
+                <input type="text" id="inviteCode" style="width:65%;height:35px;" placeholder="请输入邀请码" />
+                <br  />
+                <br  />
+                <div style="margin:20 0 0 0;text-align:center" >
+                    <input type="button" style="width:65%;height:35px;color:#ffffff" value="确定" onclick="invite()"/>
+                </div>
+
+            </div>
         </div>
         <!--布局头部-->
-        <div data-role="layout" data-id="layout" data-platform="android">
+        <div data-role="layout" data-id="layout"  data-platform="android">
             <header data-role="footer">
                 <div data-role="navbar">
                     <span data-role="view-title"></span>
+                    <a data-role="backbutton" data-align="left">返回</a>
                 </div>
             </header>
         </div>
+        <!--主页面-->
+        <!--成长空间-->
+        <!--视图-->
+        <div id="shitu" data-role="view" data-init="mobileListViewPullToRefresh" data-layout="layoutMain" data-title="成长空间">
+            <ul id="endless-scrolling">
+            </ul>
+        </div>
+        <script type="text/x-kendo-template" id="foo-template">
+            <div style="width:100%;height:3em;">
+                <div style="display:inline;width:30%;font-size: .7em;vertical-align:middle;" >
+                    <img  class="item-photo" src="http://202.105.183.158/bstest/upload/#: img #" />
+                    <span class="item-title"> #: name #</span>
+                </div>
+                <div style="display:inline;width:70%;font-size: .7em;float:right;text-align:right;">
+                    <span> #: date #
+                    
+                    </span>
+                </div>
+            </div>
+            <div style="width:100%;text-align:left;" onclick="getDetil('#:id#')">
+                #if (data.children.length > 1) {#
+                    # for (var i = 0; i < data.children.length; i++) { #
+                        <img width="32%" style="algin:left" src="http://202.105.183.158/bstest/upload/M/#: data.children[i]["@url"] #" />
+                    # } #
+                #}
+                else {#
+                    <img width="32%" style="algin:left" src="http://202.105.183.158/bstest/upload/M/#: children["@url"] #" />
+                #}
+                
+                #
+            </div>
+            <hr/>
+        </script>
+        <!--列表-->
+        <div data-role="view" id="libiao" data-layout="layoutMain" data-title="成长空间" >
+            <ul id="fixed-listview" data-role="listview" data-template="liebiao-template"  data-source="foo1" >
+            </ul>
+        </div>
+        <script type="text/x-kendo-template" id="liebiao-template">
+            <div style="width:100%;height:3em;">
+                <div style="display:inline;width:30%;font-size: .7em;vertical-align:middle;" >
+                    <img  class="item-photo" src="http://202.105.183.158/bstest/upload/#: img #" />
+                    <span class="item-title"> #: name #</span>
+                </div>
+                <div style="display:inline;width:70%;font-size: .7em;float:right;text-align:right;">
+                    <span> #: date #
+                    
+                    </span>
+                </div>
+            </div>
+            <div style="width:100%;text-align:left;">
+
+                <img  style="algin:left" src="http://202.105.183.158/bstest/upload/L/#: url #" />
+
+            </div>
+            <div style="width:100%;text-align:left;">
+            
+                #:neirong#
+                
+            </div>
+            <hr/>
+        </script>
+        <script>
+            var url = "http://202.105.183.158/bstest/mapi/api_diary.ashx?t=shitu_ajax";
+            var foo1 = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        type: "Post",
+                        data:{methodName:"1",a:"",b:"",c:"S",d:""},
+                        dataType:"xml",
+                        url: url,
+                    }
+                },
+                schema: {
+                    // specify the the schema is XML
+                    type: "xml",
+                    // the XML element which represents a single data record
+                    data: "xml/objInfo",
+                    // define the model - the object which will represent a single data record
+                    model: {
+                        // configure the fields of the object
+                        fields: {
+                            // the "title" field is mapped to the text of the "title" XML element
+                            img: "user/@img",
+                            // the "id" field is mapped to the "id" attribute of the "book" XML element
+                            name: "user/@name",
+                            id:"content/@id",
+                            date: "content/@date" ,
+                            url:"content/@img",
+                            neirong:"content/neirong/text()"
+                        }
+            
+                    }
+            
+                }
+            });
+        </script>
+
+        <!--我的空间-->
+        <div data-role="view" id="myroom" data-init="showpUserInfo" data-title="我的空间" >
+            <header data-role="footer" >
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                </div>
+                <div id="userDetil" style="margin:0 0 0 0;padding:0 0 0 0;width:100%;background:red;" >
+                    <div style="width:100%;border-color:red;border: 1px solid;-moz-border-radius: 9px; -webkit-border-radius: 9px; x">
+                        <div style="width:100%;height:75px;">
+                            <div style="width:25%;height:75px;text-align:center;border: 1px solid;line-height:75px;float:left " >
+                                <img src="http://202.105.183.158/bstest/upload/" style="width:55px;height:55px; vertical-align: middle;">
+                            </div>
+                            <div style="display:inline;width:74%;height:75px;text-align:center;float:left">
+                                <div style="width:100%;height:40px;text-align:center;border: 1px solid;float:left" >
+                                    <div style="display:inline;padding:2 5 5 3;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                        <font size="1.0em" style="font-weight:bold"></font>125<br />
+                                        <font size="1.0em">发表</font>
+                                    </div>
+                                    <div style="display:inline;padding:5 5 5 5;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                        <font size="1.0em" style="font-weight:bold"></font>123<br />
+                                        <font size="1.0em">赞</font>
+                                    </div>
+                                    <div style="display:inline;padding:5 5 5 5;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                        <font size="1.0em" style="font-weight:bold"></font>125<br />
+                                        <font size="1.0em">评论</font>
+                                    </div>
+                                    <div style="display:inline;padding:5 5 5 5;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                        <font size="1.0em" style="font-weight:bold"></font>123<br />
+                                        <font size="1.0em">浏览</font>
+                                    </div>
+                                </div>
+                                <div style="width:100%;height:35px;overflow:hidden;">
+                                    <font size="1.0em">eeeeeeeee</font>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div style="margin:5 0 6 0;">
+                            <div style="margin:0 2 0 4;height:20px;text-align:center;text-valign:middle;width:23%;background-color:red;float:left">
+                                <font size="1.0em" style="font-weight:bold">我的群组</font>
+                            </div>
+                            <table style="width:70%;border-size:0;overflow:hidden;">
+                                <tr>
+                                    
+                                    <td style="width:33%;">
+                                        <div style="margin:0 2 0 0;width:100%;height:20px;text-align:center;text-valign:middle;border-radius:2;background-color:c1fabe;overflow:hidden;">
+                                          ssss
+                                        </div>
+                                    </td>
+                                   
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div  data-role="tabstrip" style="width:100%">
+                        <a href="shitu" style="" data-icon="">
+                            <img  src="./styles/image/pubu.png">
+                        </a>
+                        <a href="libiao" style="" data-icon="">
+                            <img src="./styles/image/libiao.png">
+                        </a>
+                        <a href="" data-icon="">
+                            <img src="./styles/image/dpb.png">
+                        </a>
+                        <a href=""  data-icon="">
+                            <img src="./styles/image/qqh.png">
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <ul id="userShitu">
+
+            </ul>
+        </div>
+        <script type="text/x-kendo-template" id="userDetil-template">
+            <div style="width:100%;border-color:red;border: 1px solid;-moz-border-radius: 9px; -webkit-border-radius: 9px; x">
+                <div style="width:100%;height:75px;">
+                    <div style="width:25%;height:75px;text-align:center;border: 1px solid;line-height:75px;float:left " >
+                        <img src="http://202.105.183.158/bstest/upload/#: img #" style="width:55px;height:55px; vertical-align: middle;">
+                    </div>
+                    <div style="display:inline;width:74%;height:75px;text-align:center;float:left">
+                        <div style="width:100%;height:40px;text-align:center;border: 1px solid;float:left" >
+                            <div style="display:inline;padding:2 5 5 3;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                <font size="1.0em" style="font-weight:bold"></font>#: fabiao #<br />
+                                <font size="1.0em">发表</font>
+                            </div>
+                            <div style="display:inline;padding:5 5 5 5;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                <font size="1.0em" style="font-weight:bold"></font>#: zan #<br />
+                                <font size="1.0em">赞</font>
+                            </div>
+                            <div style="display:inline;padding:5 5 5 5;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                <font size="1.0em" style="font-weight:bold"></font>#: pinglun #<br />
+                                <font size="1.0em">评论</font>
+                            </div>
+                            <div style="display:inline;padding:5 5 5 5;background-color:gray;width:25%;height:100%;text-align:center;float:left" >
+                                <font size="1.0em" style="font-weight:bold"></font>#: liulan #<br />
+                                <font size="1.0em">浏览</font>
+                            </div>
+                        </div>
+                        <div style="width:100%;height:35px;overflow:hidden;">
+                            <font size="1.0em">#: qianming #</font>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div style="margin:5 0 6 0;">
+                    <div style="margin:0 2 0 4;height:20px;text-align:center;text-valign:middle;width:23%;background-color:red;float:left">
+                        <font size="1.0em" style="font-weight:bold">我的群组</font>
+                    </div>
+                    <table style="width:70%;border-size:0;overflow:hidden;">
+                        <tr>
+                            #if (data.children.length > 1) {#
+                                # for (var i = 0; i < data.children.length; i++) { #
+                            <td style="width:33%;">
+                                <div style="margin:0 2 0 0;width:100%;height:20px;text-align:center;text-valign:middle;border-radius:2;background-color:c1fabe;overflow:hidden;">
+                                    #: data.children[i]["@name"] #
+                                </div>
+                            </td>
+                                # } #
+                            #}
+                            else {#
+                        <td style="width:33%;">
+                            <div style="margin:0 2 0 0;width:100%;height:20px;text-align:center;text-valign:middle;border-radius:2;background-color:c1fabe;overflow:hidden;">
+                                #: children["@name"] #
+                            </div>
+                        </td>
+                            #}
+                            
+                            # 
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div  data-role="tabstrip" style="width:100%">
+                <a href="shitu" style="" data-icon="">
+                    <img  src="./styles/image/pubu.png">
+                </a>
+                <a href="libiao" style="" data-icon="">
+                    <img src="./styles/image/libiao.png">
+                </a>
+                <a href="" data-icon="">
+                    <img src="./styles/image/dpb.png">
+                </a>
+                <a href=""  data-icon="">
+                    <img src="./styles/image/qqh.png">
+                </a>
+            </div>
+        </script>
+        <!--布局2头部头和尾部-->
+        <div data-role="layout" data-id="layoutMain" data-platform="android">
+            <header data-role="footer" >
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                </div>
+                <div  data-role="tabstrip" id="custom-tabstrip">
+                    <a href="#shitu" style="" data-icon="">
+                        <img  src="./styles/image/pubu.png">
+                    </a>
+                    <a href="#libiao" style="" data-icon="">
+                        <img src="./styles/image/libiao.png">
+                    </a>
+                    <a href="" data-icon="">
+                        <img src="./styles/image/dpb.png">
+                    </a>
+                    <a href=""  data-icon="">
+                        <img src="./styles/image/qqh.png">
+                    </a>
+                </div>
+            </header>
+
+            <div data-role="header">
+                <div data-role="tabstrip" >
+                    <a href="#shitu" data-icon="contacts"> 成长空间</a>
+                    <a href="#myroom" data-icon="info">我的空间</a>
+                    <a href="" data-icon="add"></a>
+                    <a href="" data-icon="mostviewed">通知公告</a>
+                    <a href="" data-icon="camera">视频直播</a>
+                </div>
+            </div>
+        </div>
+
         <script>
             var app = new kendo.mobile.Application();
         </script>

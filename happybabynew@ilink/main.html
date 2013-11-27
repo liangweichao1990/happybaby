@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <script src="cordova.js"></script>
+        <link href="styles/kendo.common.min.css" rel="stylesheet" />
+        <link href="styles/kendo.default.min.css" rel="stylesheet" />
+        <link href="styles/kendo.mobile.all.min.css" rel="stylesheet" />
+        <script src="cordova.js"></script>
+        <script src="kendo/js/jquery.min.js"></script>
+        <script src="kendo/kendo.mobile.min.js"></script>
+    </head>
+    <body style="background:#ffffff">
+
+        <div id="shitu" data-role="view" data-init="mobileListViewPullToRefresh" data-title="Cities">
+            <ul id="endless-scrolling">
+            </ul>
+            
+        </div>
+        <!--详细-->
+        <div data-role="view" id="scrollview-home" data-title="Photo Gallery">
+            <div id="scrollview-container">
+                <div id="scrollview" data-role="scrollview" data-content-height="200px" data-velocity-threshold="0.1" data-source="foo2" data-template ="scrollview-binding-template" style="width: 100%;-webkit-transform: translate3d(0px, 0, 0);"  >
+
+                </div>
+            </div>
+        </div>
+        <script>
+            function detailInit() {
+                app.navigate("#:back");
+            }
+        </script>
+        <!--列表-->
+        <div data-role="view" id="libiao" >
+            <ul id="fixed-listview" data-role="listview" data-template="liebiao-template"  data-source="foo1" >
+            </ul>
+        </div>
+        <script type="text/x-kendo-template" id="liebiao-template">
+            <div style="width:100%;height:3em;">
+                <div style="display:inline;width:30%;font-size: .7em;vertical-align:middle;" >
+                    <img  class="item-photo" src="http://202.105.183.158/bstest/upload/#: img #" />
+                    <span class="item-title"> #: name #</span>
+                </div>
+                <div style="display:inline;width:70%;font-size: .7em;float:right;text-align:right;">
+                    <span> #: date #
+                    
+                    </span>
+                </div>
+            </div>
+            <div style="width:100%;text-align:left;">
+
+                <img  style="algin:left" src="http://202.105.183.158/bstest/upload/L/#: url #" />
+
+            </div>
+            <div style="width:100%;text-align:left;">
+            
+                #:neirong#
+                
+            </div>
+            <hr/>
+        </script>
+
+        <script type="text/x-kendo-template" id="foo-template">
+            <div style="width:100%;height:3em;">
+                <div style="display:inline;width:30%;font-size: .7em;vertical-align:middle;" >
+                    <img  class="item-photo" src="http://202.105.183.158/bstest/upload/#: img #" />
+                    <span class="item-title"> #: name #</span>
+                </div>
+                <div style="display:inline;width:70%;font-size: .7em;float:right;text-align:right;">
+                    <span> #: date #
+                    
+                    </span>
+                </div>
+            </div>
+            <div style="width:100%;text-align:left;" onclick="getDetil('#:id#')">
+                #if (data.children.length > 1) {#
+                    # for (var i = 0; i < data.children.length; i++) { #
+                        <img width="32%" style="algin:left" src="http://202.105.183.158/bstest/upload/M/#: data.children[i]["@url"] #" />
+                    # } #
+                #}
+                else {#
+                    <img width="32%" style="algin:left" src="http://202.105.183.158/bstest/upload/M/#: children["@url"] #" />
+                #}
+                
+                #
+            </div>
+            <hr/>
+        </script>
+        <script type="text/x-kendo-template" id="detil-template">
+            <div style="width:100%;height:3em;">
+                <div style="display:inline;width:30%;font-size: .7em;vertical-align:middle;" >
+                    <img  class="item-photo" src="http://202.105.183.158/bstest/upload/#: img #" />
+                    <span class="item-title"> #: name #</span>
+                </div>
+                <div style="display:inline;width:70%;font-size: .7em;float:right;text-align:right;">
+                    <span> #: date #
+                    
+                    </span>
+                </div>
+            </div>
+            <div data-role="scrollview" >
+                #if (data.children.length > 1) {#
+                    # for (var i = 0; i < data.children.length; i++) { #
+                    <div  data-role="page">
+                        <img  style="algin:left" src="http://202.105.183.158/bstest/upload/L/#: data.children[i]["@img"] #" />
+                    </div>
+                    # } #
+                #}
+                else {#
+                <div  data-role="page">
+                    <img  style="algin:left" src="http://202.105.183.158/bstest/upload/L/#: children["@img"] #" />
+                </div>
+                #}
+                
+                #
+            </div>
+            <hr/>
+        </script>
+        <script id="scrollview-binding-template" type="text/x-kendo-template">
+            <div classs="photo"  data-role="page">
+                <img  src="http://202.105.183.158/bstest/upload/L/#: img #" />
+            </div>
+        </script>
+
+        <script>
+            var url = "http://202.105.183.158/bstest/mapi/api_diary.ashx?t=shitu_ajax";
+            // datasource below is customized for demo purposes.
+            var foo1 = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        type: "Post",
+                        data:{methodName:"1",a:"",b:"",c:"S",d:""},
+                        dataType:"xml",
+                        url: url,
+                    }
+                },
+                schema: {
+                    // specify the the schema is XML
+                    type: "xml",
+                    // the XML element which represents a single data record
+                    data: "xml/objInfo",
+                    // define the model - the object which will represent a single data record
+                    model: {
+                        // configure the fields of the object
+                        fields: {
+                            // the "title" field is mapped to the text of the "title" XML element
+                            img: "user/@img",
+                            // the "id" field is mapped to the "id" attribute of the "book" XML element
+                            name: "user/@name",
+                            id:"content/@id",
+                            date: "content/@date" ,
+                            url:"content/@img",
+                            neirong:"content/neirong/text()"
+                        }
+            
+                    }
+            
+                }
+            
+                
+            });
+            
+        </script>
+        <script>
+           
+            function mobileListViewPullToRefresh() {
+                foo = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            type :"Post",
+                            dataType :"xml",
+                            url :"http://202.105.183.158/bstest/mapi/api_diary.ashx",
+                        },
+                        parameterMap: function(options) {
+                            return {
+                                methodName:"1",
+                                a:options.max_id ,
+                                c:"V",
+                                f:options.first_id 
+                            };
+                        }
+                    },
+                    serverPaging: true,
+                    pageSize: 10,
+                    schema: {
+                        type: "xml",
+                        data: "xml/objInfo",
+                        model
+                        : {
+                            fields: {
+                                img:"user/@img",
+                                id:"content/@id",
+                                name: "user/@name",
+                                date: "content/@date" ,
+                                children:"content/pics/pic",
+                            }
+                        }
+                    }
+                });
+                $("#endless-scrolling").kendoMobileListView({
+                    dataSource: foo,
+                    template: $("#foo-template").html(),
+                    appendOnRefresh: true,
+                    pullToRefresh: true,
+                    //addition parameters which will be passed to the DataSource's read method
+                    pullParameters: function(firstItem) { //pass first data item of the ListView
+                        return {
+                            fist_id: firstItem.id
+                        };
+                    },
+                    endlessScroll: true,
+                    endlessScrollParameters:function(lastItem) {
+                        return {
+                            max_id : lastItem.id_str
+                        };
+                    }
+                }
+                
+                );
+            }
+        </script>
+        <script>
+            var foo2 = "";
+            function getDetil(id) {
+                app.navigate("#scrollview-home");
+                foo2 = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            type: "Post",
+                            dataType:"xml",
+                            url: "http://202.105.183.158/bstest/mapi/api_diary.ashx",
+                        },
+                        parameterMap: function(options) {
+                            return {
+                                methodName:"2",
+                                a:id ,
+                            };
+                        }
+                    },
+                    
+                    serverPaging: true,
+                    pageSize:20,
+                    schema: {
+                        type: "xml",
+                        data: "xml/piclist/pic",
+                        model: {
+                            fields: {
+                                img: "@img",
+                            }
+                        }
+                    },
+                    change: function() {
+                    }  
+                });
+                   
+                $("#scrollview").kendoMobileScrollView({
+                    dataSource: foo2,
+                    contentHeight :200,
+                    template: $("#scrollview-binding-template").html(),
+                });
+            }
+            
+        </script>
+        
+        <style scoped>
+            .item-photo
+            {
+                width: 3em;
+                height: 3em;
+                float: left;
+                vertical-align: middle;
+                -webkit-box-shadow: 0 1px 3px #333;
+                box-shadow: 0 1px 3px #333;
+                -webkit-border-radius: 8px;
+                border-radius: 8px;
+                display: inline;
+            }
+            
+            #fixed-listview .item-title
+            {
+                vertical-align: middle;
+                float: left;
+                display: inline;
+            }
+            #fixed-listview .item-info
+            {
+            
+                font-size: .5em;
+                line-height: 1em;
+                width: 100%;
+            }
+            
+            .details-link
+            {
+                margin-top: -1.2em;
+                position: absolute;
+                right: 0.6em;
+                top: 50%;
+            }
+            .km-listview .km-list
+            {
+                margin: 0;
+            }
+        </style>
+        
+    </body>
+</html>

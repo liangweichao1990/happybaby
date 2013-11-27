@@ -1,11 +1,52 @@
 /* 背景*/
 .km-android .km-view .km-content
 {
-    background:url(../styles/image/beijin.png);
-    background-repeat:no-repeat;
+    background: url(../styles/image/beijin.png);
+    background-repeat: no-repeat;
 }
-
-
+/* 标题*/
+.km-android .km-view-title
+{
+    visibility: visible;
+}
+.km-android .km-content
+{
+    color: rgb(12, 11, 11);
+}
+/* input字体颜色*/
+.km-android input[type=password], .km-android input[type=search], .km-android input[type=number], .km-android input[type=tel], .km-android input[type=url], .km-android input[type=email], .km-android input[type=month], .km-android input[type=color], .km-android input[type=week], .km-android input[type=date], .km-android input[type=time], .km-android input[type=datetime], .km-android input[type=datetime-local], .km-android input[type=text]:not(.k-input), .km-android select:not([multiple]), .km-android .k-dropdown, .km-android textarea
+{
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    color: rgb(14, 13, 13);
+    padding: .4em;
+    outline: 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-box-sizing: padding-box;
+    -webkit-box-sizing: padding-box;
+    box-sizing: padding-box;
+}
+/* 弹出框*/
+.km-android .km-actionsheet, .km-android .km-popup .k-list-container
+{
+    position: static;
+    margin-left: 5%;
+    width: 90%;
+    display: inline-block;
+    border: 0;
+    padding: 0;
+    background: rgba(252, 248, 251, 0.78);
+    color: rgb(2, 1, 1);
+    vertical-align: middle;
+    border-radius: 2;
+    -moz-border-radius: 2;
+    -webkit-border-radius: 2;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+}
 .km-android .km-view .km-navbar
 {
     background-color: rgb(15, 173, 0);
@@ -123,11 +164,6 @@ body, a, ul, li
     list-style: none;
 }
 
-.km-android .km-view-title
-{
-    visibility: visible;
-}
-
 #scrollview-home .photo
 {
     margin: 0;
@@ -144,7 +180,8 @@ body, a, ul, li
 }
 
 #scrollview-container
-{   width:100%;
+{
+    width: 100%;
     margin: 60px 0 1em 0;
     padding-bottom: 20px;
     padding-top: 20px;
@@ -214,4 +251,55 @@ body, a, ul, li
     top: 0;
     left: 10px;
     display: inline-block;
+}
+
+.item-photo
+{
+    width: 3em;
+    height: 3em;
+    float: left;
+    vertical-align: middle;
+    -webkit-box-shadow: 0 1px 3px #333;
+    box-shadow: 0 1px 3px #333;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    display: inline;
+}
+            
+#fixed-listview .item-title
+{
+    vertical-align: middle;
+    float: left;
+    display: inline;
+}
+#fixed-listview .item-info
+{
+            
+    font-size: .5em;
+    line-height: 1em;
+    width: 100%;
+}
+            
+.details-link
+{
+    margin-top: -1.2em;
+    position: absolute;
+    right: 0.6em;
+    top: 50%;
+}
+.km-listview .km-list
+{
+    margin: 0;
+}
+.km-list>li, .km-root .km-listview-link, .km-root .km-listview-label
+{
+    margin: 0;
+    display: block;
+    position: relative;
+    list-style-type: none;
+    vertical-align: middle;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: .5em .7em;
 }
